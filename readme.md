@@ -2,7 +2,7 @@
 ###### _documentation by romi julianto_
 #### Link Resources
 - [Playlist Youtube: Junior Programmer](https://www.youtube.com/watch?v=euIOOHztmXw&list=PLMuseYduIxcOLdLoCosGijEg0cEfCaidz)
-- [Link Course](https://www.udemy.com/course/mastery-in-java-web-services-and-restful-api)
+- [Link Course: Mastery in Java Web Services and RESTful API with SpringBoot](https://www.udemy.com/course/mastery-in-java-web-services-and-restful-api)
 
 
 
