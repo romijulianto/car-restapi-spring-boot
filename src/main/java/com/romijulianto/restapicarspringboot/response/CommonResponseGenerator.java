@@ -1,5 +1,9 @@
 package com.romijulianto.restapicarspringboot.response;
 
+
+import org.springframework.stereotype.Component;
+
+@Component // to indicate component where can call in other class
 /* Generator to return data, set T */
 public class CommonResponseGenerator<T> {
 

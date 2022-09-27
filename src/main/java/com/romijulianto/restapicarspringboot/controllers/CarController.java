@@ -2,6 +2,8 @@ package com.romijulianto.restapicarspringboot.controllers;
 
 import com.romijulianto.restapicarspringboot.entities.CarEntity;
 import com.romijulianto.restapicarspringboot.repositories.CarRepository;
+import com.romijulianto.restapicarspringboot.response.CommonResponse;
+import com.romijulianto.restapicarspringboot.response.CommonResponseGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,31 +17,35 @@ public class CarController {
     @Autowired
     CarRepository carRepository;
 
+    /* call generator to use CommonResponse */
+    @Autowired
+    CommonResponseGenerator commonResponseGenerator;
+
     /* method getCar */
     @GetMapping(value = "checkAPI")
-    public String checkApi() {
-        return "Hello World";
+    public CommonResponse<String> checkApi() {
+        return commonResponseGenerator.successResponse("Hello World", "Success Running Server Java Backend");
     }
 
     /* method addNewCar */
     @PostMapping(value = "add")
-    public CarEntity addNewCar(@RequestBody CarEntity param) {
+    public CommonResponse<CarEntity> addNewCar(@RequestBody CarEntity param) {
 
         /* save body from CarEntity to CarRepository */
         carRepository.save(param);
-        return param;
+        return commonResponseGenerator.successResponse(param, "Success add new car");
     }
 
     /* method getAllCar */
     @GetMapping(value = "")
-    public List<CarEntity> getAllcar() {
-        return carRepository.findAll();
+    public CommonResponse<List<CarEntity>> getAllcar() {
+        return commonResponseGenerator.successResponse(carRepository.findAll(), "Success get all data");
     }
 
     /* method getCarById */
     @GetMapping(value = "getCarId")
-    public CarEntity getCarById(@RequestParam int id) {
-        return carRepository.findById(id).get();
+    public CommonResponse<CarEntity> getCarById(@RequestParam int id) {
+        return commonResponseGenerator.successResponse(carRepository.findById(id).get(), "Success get car by ID");
     }
 
     /* method updateCar */
@@ -51,8 +57,8 @@ public class CarController {
      */
 
     /* option 2 to updateCar */
-    public CarEntity updateCar(@RequestBody CarEntity param) {
-        return carRepository.save(param);
+    public CommonResponse<CarEntity> updateCar(@RequestBody CarEntity param) {
+        return commonResponseGenerator.successResponse(carRepository.save(param), "Success update car");
     }
 
     /* method deleteCar */
@@ -65,11 +71,20 @@ public class CarController {
     }
     */
 
-    /* option 2 with return data has been deleted */
+    /* option 2 with return data has been deleted
     @GetMapping(value = "delete")
     public CarEntity deleteCar(@RequestParam int id) {
         CarEntity car = carRepository.findById(id).get();
         carRepository.deleteById(id);
         return car;
+    }
+    */
+
+    /* option 3 with return data list Car Available */
+    @GetMapping(value = "delete")
+    public CommonResponse<List<CarEntity>> deleteCar(@RequestParam int id) {
+        carRepository.deleteById(id);
+        List<CarEntity> carList = carRepository.findAll();
+        return commonResponseGenerator.successResponse(carList, "Success delete car with id: " + id);
     }
 }
