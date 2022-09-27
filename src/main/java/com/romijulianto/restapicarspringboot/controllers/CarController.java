@@ -1,6 +1,8 @@
 package com.romijulianto.restapicarspringboot.controllers;
 
 import com.romijulianto.restapicarspringboot.entities.CarEntity;
+import com.romijulianto.restapicarspringboot.response.CommonResponse;
+import com.romijulianto.restapicarspringboot.response.CommonResponseGenerator;
 import com.romijulianto.restapicarspringboot.services.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,52 +17,74 @@ public class CarController {
     @Autowired
     CarService carService;
 
+    /* call CommonResponse */
+    @Autowired
+    CommonResponseGenerator commonResponseGenerator;
+
     /* method getCar */
     @GetMapping(value = "checkAPI")
-    public String checkApi() {
-        return "Hello World";
+    public CommonResponse<String> checkApi() {
+        return commonResponseGenerator.successResponse("Hello World", "Success Running Server Java Backend");
     }
 
     /* method addNewCar */
     @PostMapping(value = "add")
-    public CarEntity addNewCar(@RequestBody CarEntity param) {
+    public CommonResponse<CarEntity> addNewCar(@RequestBody CarEntity param) {
 
-        /* use CarService to safe data repository */
-        CarEntity car =  carService.addCar(param);
-        return car;
+        try {
+            /* use CarService to safe data repository */
+            CarEntity car =  carService.addCar(param);
+            return commonResponseGenerator.successResponse(car, "Success add new car");
+        } catch (Exception e) {
+            return commonResponseGenerator.failedResponse(e.getMessage());
+        }
     }
 
     /* method getAllCar */
     @GetMapping(value = "")
-    public List<CarEntity> getAllCar() {
-
-        /* initiate list for need to CarService */
-        List<CarEntity> carList = carService.getAllCar();
-        return carList;
+    public CommonResponse<List<CarEntity>> getAllCar() {
+        try {
+            /* initiate list for need to CarService */
+            List<CarEntity> carList = carService.getAllCar();
+            return commonResponseGenerator.successResponse(carList, "Success get all data");
+        } catch (Exception e) {
+            return commonResponseGenerator.failedResponse(e.getMessage());
+        }
     }
 
     /* method getCarById */
     @GetMapping(value = "getCarId")
-    public CarEntity getCarById(@RequestParam int id) {
+    public CommonResponse<CarEntity> getCarById(@RequestParam int id) {
 
-        CarEntity car = carService.getCarById(id);
-        return car;
+        try {
+            CarEntity car = carService.getCarById(id);
+            return commonResponseGenerator.successResponse(car, "Success get car by ID");
+        } catch (Exception e) {
+            return commonResponseGenerator.failedResponse(e.getMessage());
+        }
     }
 
     /* method updateCar */
     @PostMapping(value = "update")
-    public CarEntity updateCar(@RequestBody CarEntity param) {
-
-        CarEntity car = carService.updateCar(param);
-        return car;
+    public CommonResponse<CarEntity> updateCar(@RequestBody CarEntity param) {
+        try {
+            CarEntity car = carService.updateCar(param);
+            return commonResponseGenerator.successResponse(car, "Success update car with Id : " + car.getId());
+        } catch (Exception e) {
+            return commonResponseGenerator.failedResponse(e.getMessage() + " for Id : " + param.getId());
+        }
     }
 
     /* method deleteCar */
     @GetMapping(value = "delete")
-    public List<CarEntity> deleteCar(@RequestParam int id) {
+    public CommonResponse<List<CarEntity>> deleteCar(@RequestParam int id) {
 
-        carService.deleteCar(id);
-        List<CarEntity> carList = carService.getAllCar();
-        return carList;
+        try {
+            carService.deleteCar(id);
+            List<CarEntity> carList = carService.getAllCar();
+            return commonResponseGenerator.successResponse(carList, "Success delete car with Id : " + id);
+        } catch (Exception e) {
+            return commonResponseGenerator.failedResponse(e.getMessage() +" for Id : " + id);
+        }
     }
 }

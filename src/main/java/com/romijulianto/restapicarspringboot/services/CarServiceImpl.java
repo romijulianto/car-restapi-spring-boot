@@ -32,6 +32,14 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public CarEntity updateCar(CarEntity param) {
+
+        /* add method to findCar updated by Id */
+        CarEntity findCarById = carRepository.findById(param.getId()).get();
+        findCarById.setCarName(param.getCarName());
+        findCarById.setColor(param.getColor());
+        findCarById.setNumber(param.getNumber());
+        findCarById.setType(param.getType());
+
         return carRepository.save(param);
     }
 
