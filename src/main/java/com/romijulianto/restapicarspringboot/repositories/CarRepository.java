@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository // to define this file is repository
-public interface CarRepository extends JpaRepository<CarEntity, Long> {
+public interface CarRepository extends JpaRepository<CarEntity, Integer> {
 
 }

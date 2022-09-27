@@ -5,6 +5,8 @@ import com.romijulianto.restapicarspringboot.repositories.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController // to use rest api project
 @RequestMapping(value = "/car") // mapping url to call rest api
 public class CarController {
@@ -20,11 +22,36 @@ public class CarController {
     }
 
     /* method addNewCar */
-    @PostMapping(value = "addNewCar")
+    @PostMapping(value = "add")
     public CarEntity addNewCar(@RequestBody CarEntity param) {
 
         /* save body from CarEntity to CarRepository */
         carRepository.save(param);
         return param;
+    }
+
+    /* method getAllCar */
+    @GetMapping(value = "")
+    public List<CarEntity> getAllcar() {
+        return carRepository.findAll();
+    }
+
+    /* method getCarById */
+    @GetMapping(value = "getCarId")
+    public CarEntity getCarById(@RequestParam int id) {
+        return carRepository.findById(id).get();
+    }
+
+    /* method updateCar */
+    @PostMapping(value = "update")
+    /* option 1 to updateCar
+    public String updateCar(@RequestBody CarEntity param) {
+        return carRepository.save(param).toString();
+    }
+     */
+
+    /* option 2 to updateCar */
+    public CarEntity updateCar(@RequestBody CarEntity param) {
+        return carRepository.save(param);
     }
 }
