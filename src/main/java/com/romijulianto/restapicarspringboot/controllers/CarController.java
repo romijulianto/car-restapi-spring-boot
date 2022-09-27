@@ -1,7 +1,6 @@
 package com.romijulianto.restapicarspringboot.controllers;
 
 import com.romijulianto.restapicarspringboot.entities.CarEntity;
-import com.romijulianto.restapicarspringboot.response.CommonResponse;
 import com.romijulianto.restapicarspringboot.services.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -43,20 +42,25 @@ public class CarController {
     /* method getCarById */
     @GetMapping(value = "getCarId")
     public CarEntity getCarById(@RequestParam int id) {
-        return carRepository.findById(id).get();
+
+        CarEntity car = carService.getCarById(id);
+        return car;
     }
 
     /* method updateCar */
     @PostMapping(value = "update")
     public CarEntity updateCar(@RequestBody CarEntity param) {
-        return carRepository.save(param);
+
+        CarEntity car = carService.updateCar(param);
+        return car;
     }
 
     /* method deleteCar */
     @GetMapping(value = "delete")
     public List<CarEntity> deleteCar(@RequestParam int id) {
-        carRepository.deleteById(id);
-        List<CarEntity> carList = carRepository.findAll();
+
+        carService.deleteCar(id);
+        List<CarEntity> carList = carService.getAllCar();
         return carList;
     }
 }
