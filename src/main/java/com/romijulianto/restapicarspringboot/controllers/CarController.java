@@ -1,6 +1,7 @@
 package com.romijulianto.restapicarspringboot.controllers;
 
 import com.romijulianto.restapicarspringboot.entities.CarEntity;
+import com.romijulianto.restapicarspringboot.entities.CarImage;
 import com.romijulianto.restapicarspringboot.response.CommonResponse;
 import com.romijulianto.restapicarspringboot.response.CommonResponseGenerator;
 import com.romijulianto.restapicarspringboot.services.CarService;
@@ -91,7 +92,13 @@ public class CarController {
 
     /* method upload carImage*/
     @PostMapping(value = "upload-image")
-    public CommonResponse<CarImageWrapper> uploadImage(CarImageWrapper carImage){
-        return null;
+    public CommonResponse<CarImage> uploadImage(@RequestBody CarImageWrapper param){
+        try {
+
+            CarImage car = carService.uploadImage(param);
+            return commonResponseGenerator.successResponse(car, "Success upload image");
+        } catch (Exception e) {
+            return commonResponseGenerator.failedResponse(e.getMessage());
+        }
     }
 }
