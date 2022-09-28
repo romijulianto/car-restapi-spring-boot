@@ -84,7 +84,7 @@ public class CarController {
             List<CarEntity> carList = carService.getAllCar();
             return commonResponseGenerator.successResponse(carList, "Success delete car with Id : " + id);
         } catch (Exception e) {
-            return commonResponseGenerator.failedResponse(e.getMessage() +" for Id : " + id);
+            return commonResponseGenerator.failedResponse(e.getMessage());
         }
     }
 }
