@@ -1,7 +1,10 @@
 package com.romijulianto.restapicarspringboot.services;
 
 import com.romijulianto.restapicarspringboot.entities.CarEntity;
+import com.romijulianto.restapicarspringboot.entities.CarImage;
+import com.romijulianto.restapicarspringboot.repositories.CarImageRepository;
 import com.romijulianto.restapicarspringboot.repositories.CarRepository;
+import com.romijulianto.restapicarspringboot.wrappers.CarImageWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +16,10 @@ public class CarServiceImpl implements CarService {
     /* load repository here */
     @Autowired
     CarRepository carRepository;
+
+    /* load CarImageRepository here */
+    @Autowired
+    CarImageRepository carImageRepository;
 
     /* implement from interface CarService */
     @Override
@@ -47,5 +54,17 @@ public class CarServiceImpl implements CarService {
     public void deleteCar(int id) {
         /* add method delete */
         carRepository.deleteById(id);
+    }
+
+    @Override
+    public CarImage uploadImage(CarImageWrapper carImageWrapper) {
+
+        /* create new object for save */
+        CarImage carImage = new CarImage();
+        /* find CarById in table Car */
+        carImage.setCar(carRepository.findById(carImageWrapper.getCarId()).get());
+        carImage.setContentType(carImageWrapper.getContentType());
+        carImage.setBase64(carImageWrapper.getBase64());
+        return carImageRepository.save(carImage);
     }
 }

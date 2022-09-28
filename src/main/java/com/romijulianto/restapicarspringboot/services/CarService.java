@@ -1,6 +1,8 @@
 package com.romijulianto.restapicarspringboot.services;
 
 import com.romijulianto.restapicarspringboot.entities.CarEntity;
+import com.romijulianto.restapicarspringboot.entities.CarImage;
+import com.romijulianto.restapicarspringboot.wrappers.CarImageWrapper;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -19,4 +21,6 @@ public interface CarService {
     CarEntity updateCar(CarEntity param);
 
     void deleteCar(int id);
+
+    CarImage uploadImage(CarImageWrapper carImageWrapper);
 }

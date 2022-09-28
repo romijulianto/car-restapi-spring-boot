@@ -4,6 +4,7 @@ import com.romijulianto.restapicarspringboot.entities.CarEntity;
 import com.romijulianto.restapicarspringboot.response.CommonResponse;
 import com.romijulianto.restapicarspringboot.response.CommonResponseGenerator;
 import com.romijulianto.restapicarspringboot.services.CarService;
+import com.romijulianto.restapicarspringboot.wrappers.CarImageWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -90,7 +91,7 @@ public class CarController {
 
     /* method upload carImage*/
     @PostMapping(value = "upload-image")
-    public CommonResponse<CarImage> uploadImage{
+    public CommonResponse<CarImageWrapper> uploadImage(CarImageWrapper carImage){
         return null;
     }
 }
