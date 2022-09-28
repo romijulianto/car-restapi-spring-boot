@@ -1,10 +1,12 @@
 package com.romijulianto.restapicarspringboot.entities;
 
+import com.romijulianto.restapicarspringboot.audit.AuditableBase;
+
 import javax.persistence.*;
 
 @Entity // to specific this class entity
 @Table(name = "car") // this class to definition table using jpa to db
-public class CarEntity {
+public class CarEntity extends AuditableBase {
 
     /* initiate attribute table */
     @Id

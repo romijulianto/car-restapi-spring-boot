@@ -1,10 +1,12 @@
 package com.romijulianto.restapicarspringboot.entities;
 
+import com.romijulianto.restapicarspringboot.audit.AuditableBase;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "car_image") // this class to definition table using jpa to db
-public class CarImage {
+public class CarImage extends AuditableBase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
