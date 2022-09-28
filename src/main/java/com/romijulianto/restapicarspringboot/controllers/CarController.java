@@ -87,4 +87,10 @@ public class CarController {
             return commonResponseGenerator.failedResponse(e.getMessage());
         }
     }
+
+    /* method upload carImage*/
+    @PostMapping(value = "upload-image")
+    public CommonResponse<CarImage> uploadImage{
+        return null;
+    }
 }

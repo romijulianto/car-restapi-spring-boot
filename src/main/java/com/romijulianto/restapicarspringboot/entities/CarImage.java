@@ -3,10 +3,11 @@ package com.romijulianto.restapicarspringboot.entities;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "car_image") // this class to definition table using jpa to db
 public class CarImage {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO);
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     /* association table CarImage and Car */
